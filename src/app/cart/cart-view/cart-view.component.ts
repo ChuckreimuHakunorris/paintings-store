@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart.service';
 import { Product } from '../../models/product';
 
@@ -7,4 +7,14 @@ import { Product } from '../../models/product';
   templateUrl: './cart-view.component.html',
   styleUrl: './cart-view.component.css',
 })
-export class CartViewComponent {}
+export class CartViewComponent implements OnInit {
+  cartItems: Product[] = [];
+
+  constructor(private cartService: CartService) {}
+
+  ngOnInit(): void {
+    this.cartService.getCardItems().subscribe((data) => {
+      this.cartItems = data;
+    });
+  }
+}
